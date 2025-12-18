@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Girlfriend?</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff69b4, #ffb6c1);
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .page {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        button {
+            font-size: 1.5em;
+            padding: 15px 30px;
+            margin: 10px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            position: relative;
+        }
+        #yes-btn {
+            background-color: #ff1493;
+            color: white;
+        }
+        #yes-btn:hover {
+            background-color: #c71585;
+        }
+        #no-btn {
+            background-color: #dc143c;
+            color: white;
+        }
+        #no-btn:hover {
+            background-color: #b22222;
+        }
+        .congrats {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .emotes {
+            font-size: 3em;
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .heart {
+            position: absolute;
+            font-size: 2em;
+            color: #ff69b4;
+            pointer-events: none;
+            animation: fade 2s linear forwards;
+        }
+        @keyframes fade {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        #page1 { display: block; }
+        #page2 { display: none; }
+    </style>
+</head>
+<body>
+    <div id="page1" class="page">
+        <h1>Will You Be My Girlfriend?</h1>
+        <button id="yes-btn">Yes I Do</button>
+        <button id="no-btn">No Leave Me Alone</button>
+    </div>
+    <div id="page2" class="page">
+        <h1 class="congrats">Congratulations, You Are My GIRLFRIEND NOW!</h1>
+        <div class="emotes">
+            ❤️ 💖 💕 💗 💓 💞 💘 💝 😍
+        </div>
+    </div>
+
+    <script>
+        // Hearts trail animation
+        document.addEventListener('mousemove', function(e) {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.textContent = '❤️';
+            heart.style.left = e.pageX + 'px';
+            heart.style.top = e.pageY + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => {
+                heart.remove();
+            }, 2000);
+        });
+
+        // Button behaviors
+        const yesBtn = document.getElementById('yes-btn');
+        const noBtn = document.getElementById('no-btn');
+        const page1 = document.getElementById('page1');
+        const page2 = document.getElementById('page2');
+
+        // "No" button randomly moves on hover
+        noBtn.addEventListener('mouseover', function() {
+            const maxX = window.innerWidth - noBtn.offsetWidth;
+            const maxY = window.innerHeight - noBtn.offsetHeight;
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        });
+
+        // Clicking "Yes" switches to page 2
+        yesBtn.addEventListener('click', function() {
+            page1.style.display = 'none';
+            page2.style.display = 'block';
+        });
+    </script>
+</body>
+</html>
